@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sabor & Arte | Gastronomia Contemporânea</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+
+    <style>
+      /* --- VARIÁVEIS E RESET --- */
+      :root {
+        --primary-color: #e67e22;
+        --secondary-color: #c0392b;
+        --dark-color: #1a1a1a;
+        --light-color: #f4f4f4;
+        --white: #ffffff;
+        --transition: all 0.3s ease;
+        --primary: #D35400; /* Laranja queimado */
+            --secondary: #C0392B; /* Vermelho terra */
+            --accent: #F39C12; /* Dourado/Laranja claro */
+            --bg-light: #FDF5E6; /* Bege suave */
+            --text-dark: #2C3E50;
+            --white: #FFFFFF;
+            --transition: all 0.3s ease; 
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        font-family: "Poppins", sans-serif;
+        line-height: 1.6;
+        color: var(--dark-color);
+        background-color: var(--white);
+        overflow-x: hidden;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+      h1,
+      h2,
+      h3,
+      .logo {
+        font-family: "Playfair Display", serif;
+      }
+
+      /* --- HEADER & NAVEGAÇÃO --- */
+      header {
+        background: var(--white);
+        padding: 1rem 0;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        transition: var(--transition);
+      }
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        text-decoration: none;
+        color: var(--dark-color);
+      }
+      .logo span {
+        color: var(--primary-color);
+      }
+      .nav-menu {
+        display: flex;
+        list-style: none;
+      }
+      .nav-menu li a {
+        text-decoration: none;
+        color: var(--dark-color);
+        margin-left: 2rem;
+        font-weight: 600;
+        transition: var(--transition);
+      }
+      .nav-menu li a:hover {
+        color: var(--primary-color);
+      }
+
+      /* --- HERO SECTION --- */
+      .hero {
+        height: 100vh;
+        background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+          url("https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1920&q=80");
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: var(--white);
+        padding-top: 80px;
+      }
+      .hero h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        line-height: 1.2;
+      }
+      .hero p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+      }
+      .hero-btns{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      .btn {
+        padding: 0.9rem 2.2rem;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: 600;
+        transition: var(--transition);
+        display: inline-block;
+        cursor: pointer;
+      }
+      .btn-primary {
+        background: var(--primary-color);
+        color: var(--white);
+        border: 2px solid var(--primary-color);
+         
+      }
+      .btn-primary i{
+       margin-left: 12px;
+         
+      }
+
+
+      .btn-primary:hover {
+        background: var(--secondary-color);
+        border-color: var(--secondary-color);
+        transform: translateY(-3px);
+      }
+      .btn-outline {
+        border: 2px solid var(--white);
+        color: var(--white);
+      }
+      .btn-outline:hover {
+        background: var(--white);
+        color: var(--dark-color);
+      }
+
+      /* --- SOBRE --- */
+      .sobre {
+        padding: 6rem 20px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 50px;
+        align-items: center;
+      }
+      .sobre-img img {
+        width: 100%;
+        border-radius: 10px;
+        box-shadow: 15px 15px 0 var(--primary-color);
+      }
+      .sobre-text h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+      }
+      .sobre-text p {
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+        color: #555;
+      }
+      /* --- MENU SECTION --- */
+      .section-padding {
+        padding: 80px 10% 40px;
+      }
+
+      .section-title {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        position: relative;
+      }
+
+      .section-title::after {
+        content: "";
+        width: 60px;
+        height: 3px;
+        background: var(--accent);
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .filter-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 40px;
+        flex-wrap: wrap;
+      }
+
+      .filter-btn {
+        padding: 8px 25px;
+        border: 2px solid var(--primary);
+        background: transparent;
+        color: var(--primary);
+        border-radius: 20px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: var(--transition);
+      }
+
+      .filter-btn.active,
+      .filter-btn:hover {
+        background: var(--primary);
+        color: white;
+      }
+
+      .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 30px;
+      }
+
+      .menu-card {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        transition: var(--transition);
+        animation: fadeIn 0.5s ease;
+      }
+
+      .menu-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .menu-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+      .menu-info h3 {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        color: var(--secondary);
+        
+      }
+
+      .menu-info {
+        padding: 20px;
+      }
+      .menu-info p {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 15px;
+      }
+      .price {
+        font-weight: 700;
+        color: var(--primary);
+        font-size: 1.2rem;
+      }
+    
+      /* --- GALERIA --- */
+      .galeria {
+        padding: 6rem 0;
+      }
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+      }
+      .gallery-item {
+        overflow: hidden;
+        border-radius: 8px;
+        height: 250px;
+      }
+      .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition);
+        cursor: pointer;
+      }
+      .gallery-item img:hover {
+        transform: scale(1.1);
+        filter: brightness(80%);
+      }
+
+      /* --- RESERVA --- */
+      .reserva {
+        padding: 6rem 0;
+        background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+          url("https://images.unsplash.com/photo-1550966842-2849a2249828?auto=format&fit=crop&w=1200&q=80");
+        background-attachment: fixed;
+        background-size: cover;
+        color: var(--white);
+      }
+      .reserva-box {
+        max-width: 650px;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 3rem;
+        border-radius: 15px;
+        backdrop-filter: blur(5px);
+      }
+      .reserva form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+        margin-top: 2rem;
+      }
+      .form-group {
+        display: flex;
+        gap: 1.2rem;
+      }
+      input,
+      select {
+        padding: 0.9rem;
+        border: 1px solid transparent;
+        border-radius: 5px;
+        width: 100%;
+        font-family: inherit;
+      }
+     
+
+   
+        /* --- CONTATO --- */
+        .contato {
+            padding: 6rem 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .contato-info h2 { font-size: 2.5rem; margin-bottom: 1.5rem; }
+        .contato-info p { margin-bottom: 1.2rem; font-size: 1.1rem; }
+        .contato-info i { color: var(--primary-color); margin-right: 10px; width: 20px; }
+
+      /* --- FOOTER --- */
+      footer {
+        background: var(--dark-color);
+        color: var(--white);
+        padding: 3rem 0;
+        text-align: center;
+      }
+      .social-links {
+        margin-top: 1.5rem;
+      }
+      .social-links a {
+        color: var(--white);
+        font-size: 1.5rem;
+        margin: 0 15px;
+        transition: var(--transition);
+      }
+      .social-links a:hover {
+        color: var(--primary-color);
+      }
+
+      /* --- ANIMATIONS --- */
+      @keyframes fadeInDown {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* --- MOBILE MENU --- */
+      .hamburger {
+        display: none;
+        cursor: pointer;
+      }
+      .bar {
+        display: block;
+        width: 25px;
+        height: 3px;
+        margin: 5px auto;
+        background: var(--dark-color);
+        transition: 0.3s;
+      }
+
+      @media (max-width: 768px) {
+        .hamburger {
+          display: block;
+        }
+        .nav-menu {
+          position: fixed;
+          left: -100%;
+          top: 70px;
+          flex-direction: column;
+          background: var(--white);
+          width: 100%;
+          text-align: center;
+          transition: 0.4s;
+          box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+          padding: 2rem 0;
+        }
+        .nav-menu.active {
+          left: 0;
+        }
+        .nav-menu li {
+          margin: 1.2rem 0;
+        }
+        .sobre,
+        .contato {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+        .hero h1 {
+          font-size: 2.2rem;
+        }
+        .form-group { flex-direction: column; }
+      }
+    </style>
+  </head>
+  <body>
+    <header id="header">
+      <nav class="container">
+        <a href="#" class="logo">Sabor<span>&</span>Arte</a>
+        <ul class="nav-menu">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#cardapio">Menu</a></li>
+          <li><a href="#galeria">Galeria</a></li>
+          <li><a href="#reserva">Reserva</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+        <div class="hamburger">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+      </nav>
+    </header>
+
+    <section class="hero" id="home">
+      <div class="hero-content container">
+        <h1>Bem-vindo ao Restaurante Sabor & Arte</h1>
+        <p>Onde a sofisticação encontra os sabores autênticos de Angola.</p>
+        <div class="hero-btns">
+          <a href="#cardapio" class="btn btn-primary">Conhecer Menu</a>
+          <a href="#reserva" class="btn btn-outline">Reservar Agora</a>
+        </div>
+      </div>
+    </section>
+    <!-- Cardapio -->
+    <section class="section-padding" id="cardapio">
+      <h2 class="section-title">Nosso Cardápio</h2>
+
+      <div class="filter-buttons">
+        <button class="filter-btn active" data-filter="todos">Todos</button>
+        <button class="filter-btn" data-filter="entrada">Entradas</button>
+        <button class="filter-btn" data-filter="principal">
+          Pratos Principais
+        </button>
+        <button class="filter-btn" data-filter="sobremesa">Sobremesas</button>
+      </div>
+
+      <div class="menu-grid" id="menu-container"></div>
+    </section>
+
+    <section class="sobre container" id="sobre">
+      <div class="sobre-img">
+        <img
+          src="about-restaurant-vfG5EezZ.jpg"
+          alt="Nosso Restaurante"
+        />
+      </div>
+      <div class="sobre-text">
+        <h2>Nossa História</h2>
+        <p>
+            Localizado no coração de Luanda, o Restaurante Sabor & Arte nasceu da visão de unir a técnica gastronómica internacional aos ingredientes mais frescos do nosso solo.
+
+            Nossa missão é proporcionar não apenas uma refeição, mas uma experiência sensorial completa em um ambiente que respira arte e elegância.
+        </p>
+        <p>
+          Selecionamos rigorosamente nossos produtores locais para garantir que
+          apenas o melhor chegue à sua mesa.
+        </p>
+        <a href="#contato" class="btn btn-primary" style="margin-top: 1rem"
+          >Onde Estamos</a
+        > 
+      </div>
+    </section>
+    <section class="galeria" id="galeria">
+      <div class="container">
+          <h2 class="section-title">Nossa Casa</h2>
+          <div class="gallery-grid">
+              <div class="gallery-item"><img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=400&q=60" alt="Ambiente"></div>
+              <div class="gallery-item"><img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=400&q=60" alt="Prato"></div>
+              <div class="gallery-item"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=400&q=60" alt="Chefs"></div>
+              <div class="gallery-item"><img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=400&q=60" alt="Vinhos"></div>
+          </div>
+      </div>
+  </section> 
+
+  <section class="reserva" id="reserva">
+    <div class="container">
+        <div class="reserva-box">
+            <h2>Garanta sua Mesa</h2>
+            <p>Faça sua reserva online de forma rápida e segura.</p>
+            <form id="reservaForm" >
+                <input type="text" id="nome" placeholder="Seu Nome" required>
+                <div class="form-group">
+                    <input type="tel" id="whatsapp" placeholder="WhatsApp (9xx xxx xxx)"  required>
+                    <input type="number" id="pessoas" placeholder="Nº de Pessoas" min="1" max="20" required>
+                </div>
+                <div class="form-group">
+                    <input type="date" id="data" required >
+                    <input type="time" id="hora" required>
+                </div>
+                <button type="submit" class="btn btn-primary"> Solicitar Via whatsapp <i class="fa-brands fa-whatsapp ml-2"></i> </button>
+            </form>
+         
+            
+        </div>
+    </div>
+</section> 
+    <section class="contato container" id="contato">
+      <div class="contato-info">
+          <h2>Contato</h2>
+          <p><i class="fas fa-map-marker-alt"></i>
+            Av. 4 de Fevereiro, Marginal de Luanda, Angola</p>
+          <p><i class="fas fa-phone"></i> (+244) 951-414-234</p>
+          <p><i class="fas fa-envelope"></i> reservas@saborearte.com</p>
+          <p> <i class="fas fa-clock"></i>Ter - Dom: 12:00 - 23:30</p>
+        
+      </div>
+      <div class="mapa">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3942.34863372485!2d13.2291!3d-8.8147!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1a51f158591871e1%3A0xc3f6e5c8291410f4!2sMarginal%20de%20Luanda!5e0!3m2!1spt-BR!2sao!4v1617200000000!5m2!1spt-BR!2sao" width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+  </section>
+    
+
+    <footer>
+      <div class="container">
+        <p>© 2026 Restaurante Sabor & Arte. Todos os direitos reservados.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/scrollreveal" ></script>
+    <script>
+      // --- MENU MOBILE COM TROCA DE ÍCONE ---
+      const hamburger = document.querySelector(".hamburger");
+      const navMenu = document.querySelector(".nav-menu");
+
+      hamburger.addEventListener("click", () => {
+        const isActive = navMenu.classList.toggle("active");
+
+        if (isActive) {
+          // QUANDO ABERTO: Troca as barras por um X do Font Awesome
+          hamburger.innerHTML =
+            '<i class="fas fa-times" style="font-size: 25px; color: var(--dark-color); display: block; width: 25px; text-align: center;"></i>';
+        } else {
+          // QUANDO FECHADO: Volta para as 3 barras originais
+          hamburger.innerHTML =
+            '<span class="bar"></span><span class="bar"></span><span class="bar"></span>';
+        }
+      });
+
+      // FECHAR AO CLICAR EM LINKS
+      document.querySelectorAll(".nav-menu li a").forEach((link) => {
+        link.addEventListener("click", () => {
+          navMenu.classList.remove("active");
+          hamburger.innerHTML =
+            '<span class="bar"></span><span class="bar"></span><span class="bar"></span>';
+        });
+      });
+
+      // --- SCROLL REVEAL ---
+      ScrollReveal().reveal(  
+        ".hero-content, .sobre, .menu-card, .gallery-item, .reserva-box, .mapa, .contato-info",
+        {
+          delay: 200,
+          distance: "50px",
+          origin: "bottom",
+          duration: 1000,
+        }
+      );
+
+      // --- HEADER SCROLL ---
+      window.addEventListener("scroll", () => {
+        const header = document.getElementById("header");
+        header.style.background = window.scrollY > 100 ? "#ffffff" : "#ffffff";
+        header.style.padding = window.scrollY > 100 ? "0.5rem 0" : "1rem 0";
+      });
+      // --- DADOS DO CARDÁPIO ---
+      const cardapioItems = [
+        {
+          id: 1,
+          categoria: "entrada",
+          nome: "Bruschetta Toscana",
+          preco: "3.200 Kz",
+          desc: "Pão italiano tostado com tomates, manjericão e azeite.",
+          img: "https://images.unsplash.com/photo-1572656631137-7935297eff55?auto=format&fit=crop&w=500&q=60",
+        },
+        {
+          id: 2,
+          categoria: "principal",
+          nome: "Risoto de Funghi",
+          preco: "6.800 Kz",
+          desc: "Arroz arbóreo com mix de cogumelos silvestres e parmesão.",
+          img: "https://images.unsplash.com/photo-1476124369491-e7addf5db371?auto=format&fit=crop&w=500&q=60",
+        },
+        {
+          id: 3,
+          categoria: "sobremesa",
+          nome: "Petit Gâteau",
+          preco: "2.800 Kz",
+          desc: "Bolo quente de chocolate com sorvete de baunilha artesanal.",
+          img: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=500&q=60",
+        },
+        {
+          id: 4,
+          categoria: "principal",
+          nome: "Salmão Grelhado",
+          preco: "8.500 Kz",
+          desc: "Filé de salmão com crosta de ervas e legumes salteados.",
+          img: "https://images.unsplash.com/photo-1467003909585-2f8a72700288?auto=format&fit=crop&w=500&q=60",
+        },
+        {
+          id: 5,
+          categoria: "entrada",
+          nome: "Burrata ao Pesto",
+          preco: "4.500 Kz",
+          desc: "Burrata cremosa servida com pesto de manjericão e torradas.",
+          img: "https://images.unsplash.com/photo-1700483540089-63307e6dbca1?q=80&w=811&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        },
+        {
+          id: 6,
+          categoria: "sobremesa",
+          nome: "Tiramisù Clássico",
+          preco: "3.000 Kz",
+          desc: "Camadas de biscoito embebidas em café e creme mascarpone.",
+          img: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=500&q=60",
+        },
+      ];
+
+      const menuContainer = document.getElementById("menu-container");
+      const filterBtns = document.querySelectorAll(".filter-btn");
+
+      // Função para renderizar itens
+      function displayMenuItems(items) {
+        let displayMenu = items
+          .map(function (item) {
+            return `<article class="menu-card">
+                    <img src="${item.img}" alt="${item.nome}">
+                    <div class="menu-info">
+                        <h3>${item.nome} <div class="price">${item.preco}</div>
+                          </h3>
+                        <p>${item.desc}</p>
+                        
+                    </div>
+                </article>`;
+          })
+          .join("");
+        menuContainer.innerHTML = displayMenu;
+      }
+
+      // Filtro dinâmico
+      filterBtns.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          // Remover classe ativa
+          filterBtns.forEach((b) => b.classList.remove("active"));
+          e.target.classList.add("active");
+
+          const categoria = e.target.dataset.filter;
+          if (categoria === "todos") {
+            displayMenuItems(cardapioItems);
+          } else {
+            const menuFiltrado = cardapioItems.filter(
+              (item) => item.categoria === categoria
+            );
+            displayMenuItems(menuFiltrado);
+          }
+        });
+      });
+
+      // Carregar itens iniciais
+      window.addEventListener("DOMContentLoaded", () => {
+        displayMenuItems(cardapioItems);
+      });
+
+      //form reservar
+      document.getElementById('reservaForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const nome = document.getElementById('nome').value;
+            const zap = document.getElementById('whatsapp').value;
+            const data = document.getElementById('data').value;
+            const hora = document.getElementById('hora').value;
+            const pessoas = document.getElementById('pessoas').value;
+
+            const mensagem = `Olá, gostaria de solicitar uma reserva:%0A%0A*Nome:* ${nome}%0A*Data:* ${data}%0A*Hora:* ${hora}%0A*Pessoas:* ${pessoas}%0A*Contato:* ${zap}`;
+            const url = `https://wa.me/244951414234?text=${mensagem}`;
+            
+            window.open(url, '_blank');
+        });
+
+    </script>
+  </body>
+</html>
