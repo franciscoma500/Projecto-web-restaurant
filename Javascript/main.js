@@ -152,4 +152,4 @@
             const url = `https://wa.me/244951414234?text=${mensagem}`;
             
             window.open(url, '_blank');
-        });
+        });  
