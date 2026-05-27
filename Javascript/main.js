@@ -1,4 +1,4 @@
- // --- MENU MOBILE COM TROCA DE ÍCON ---
+ // --- MENU MOBILE COM TROCA DE ÍCONE ---
       const hamburger = document.querySelector(".hamburger");
       const navMenu = document.querySelector(".nav-menu");
 
