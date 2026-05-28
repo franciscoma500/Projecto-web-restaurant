@@ -32,7 +32,7 @@ window.addEventListener("load", () => {
 
       // --- SCROLL REVEAL ---
       ScrollReveal().reveal(  
-        ".hero-content, .sobre, .menu-card, .gallery-item, .reserva-box, .mapa, .contato-info",
+        ".hero-content, .sobre, .section-title, .filter-buttons, .gallery-item, .reserva-box, .mapa, .contato-info",
         {
           delay: 300,
           distance: "50px",
@@ -103,23 +103,37 @@ window.addEventListener("load", () => {
       const filterBtns = document.querySelectorAll(".filter-btn");
 
       // Função para renderizar itens
-      function displayMenuItems(items) {
-        let displayMenu = items
-          .map(function (item) {
-            return `<article class="menu-card">
-                    <img src="${item.img}" alt="${item.nome}">
-                    <div class="menu-info">
-                        <h3>${item.nome} <div class="price">${item.preco}</div>
-                          </h3>
-                        <p>${item.desc}</p>
-                        
-                    </div>
-                </article>`;
-          })
-          .join("");
-        menuContainer.innerHTML = displayMenu;
-      }
+    function displayMenuItems(items) {
+  let displayMenu = items
+    .map(function (item) {
+      return `
+        <article class="menu-card">
+          <img src="${item.img}" alt="${item.nome}">
 
+          <div class="menu-info">
+            <h3>
+              ${item.nome}
+              <div class="price">${item.preco}</div>
+            </h3>
+
+            <p>${item.desc}</p>
+          </div>
+        </article>
+      `;
+    })
+    .join("");
+
+  menuContainer.innerHTML = displayMenu;
+
+  // REAPLICAR ANIMAÇÃO
+  ScrollReveal().reveal(".menu-card", {
+    delay: 250,
+    distance: "40px",
+    origin: "bottom",
+    duration: 800,
+    interval: 150,
+  });
+}
       // Filtro dinâmico
       filterBtns.forEach((btn) => {
         btn.addEventListener("click", (e) => {
