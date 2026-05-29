@@ -1,17 +1,13 @@
- /* --- VARIÁVEIS --- */
-$primary-color: #e67e22;
-$secondary-color: #c0392b;
+/* --- VARIÁVEIS --- */
+$primary-color: #D35400;
+$secondary-color: #C0392B;
+$accent-color: #F39C12;
 $dark-color: #1a1a1a;
-$light-color: #f4f4f4;
+$light-color: #FDF5E6;
 $white: #ffffff;
 
-$primary: #D35400;
-$secondary: #C0392B;
-$accent: #F39C12;
-
-$bg-light: #FDF5E6;
-$text-dark: #2C3E50;
-
+$font-title: "Playfair Display", serif;
+$font-body: "Poppins", sans-serif;
 $transition: all 0.3s ease;
 
 /* --- RESET --- */
@@ -26,17 +22,17 @@ html {
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: $font-body;
   line-height: 1.6;
   color: $dark-color;
   background-color: $white;
   overflow-x: hidden;
-    opacity: 0;
+  opacity: 0;
   transition: opacity 1s ease;
 
-}
-body.loaded{
-  opacity: 1;
+  &.loaded {
+    opacity: 1;
+  }
 }
 
 /* --- GLOBAIS --- */
@@ -46,28 +42,44 @@ body.loaded{
   padding: 0 20px;
 }
 
-h1,
-h2,
-h3,
-.logo {
-  font-family: "Playfair Display", serif;
+h1, h2, h3, .logo {
+  font-family: $font-title;
 }
 
 /* --- HEADER --- */
 header {
-  background: $white;
+  background: transparent;
   padding: 1rem 0;
   position: fixed;
   width: 100%;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   transition: $transition;
 
   nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  /* Classe injetada via JS ao rolar a página */
+  &.scrolled {
+    background: $white;
+    padding: 0.5rem 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+    .logo {
+      color: $dark-color;
+    }
+
+    .nav-menu li a {
+      color: $dark-color;
+      &:hover { color: $primary-color; }
+    }
+
+    .bar {
+      background: $dark-color;
+    }
   }
 }
 
@@ -76,7 +88,8 @@ header {
   font-size: 1.8rem;
   font-weight: 700;
   text-decoration: none;
-  color: $dark-color;
+  color: $white;
+  transition: $transition;
 
   span {
     color: $primary-color;
@@ -91,7 +104,7 @@ header {
   li {
     a {
       text-decoration: none;
-      color: $dark-color;
+      color: $white;
       margin-left: 2rem;
       font-weight: 600;
       transition: $transition;
@@ -106,10 +119,7 @@ header {
 /* --- HERO --- */
 .hero {
   height: 100vh;
-  background:
-    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-    url("../imagens/hero-restaurant-Cmf7cg25.jpg"); 
-
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("../imagens/hero-restaurant-Cmf7cg25.jpg"); 
   background-size: cover;
   background-position: center;
   display: flex;
@@ -175,7 +185,6 @@ header {
   }
 }
 
-
 /* --- SECTION --- */
 .section-padding {
   padding: 80px 10% 40px;
@@ -191,7 +200,7 @@ header {
     content: "";
     width: 60px;
     height: 3px;
-    background: $accent;
+    background: $accent-color;
     position: absolute;
     bottom: -10px;
     left: 50%;
@@ -210,17 +219,16 @@ header {
 
 .filter-btn {
   padding: 8px 25px;
-  border: 2px solid $primary;
+  border: 2px solid $primary-color;
   background: transparent;
-  color: $primary;
+  color: $primary-color;
   border-radius: 20px;
   cursor: pointer;
   font-weight: 600;
   transition: $transition;
 
-  &.active,
-  &:hover {
-    background: $primary;
+  &.active, &:hover {
+    background: $primary-color;
     color: $white;
   }
 }
@@ -232,23 +240,31 @@ header {
   gap: 30px;
 }
 
+/* --- MENU CARD COM ANIMAÇÃO DE SCALE (SUBSTITUIR ESTE BLOCO) --- */
 .menu-card {
   background: $white;
   border-radius: 15px;
-  overflow: hidden;
+  overflow: hidden; /* CRÍTICO: Mantém a imagem dentro das bordas arredondadas ao aumentar */
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  transition: $transition;
-  animation: fadeIn 0.5s ease;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease; /* Transição suave e elegante */
 
+  /* OPÇÃO 1: O card inteiro sobe e aumenta ligeiramente */
   &:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transform: translateY(-8px) scale(1.03); /* Sobe 8px e aumenta 3% do tamanho */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12); /* Sombra projetada mais profunda */
+    
+    /* OPÇÃO 2 (Efeito Combo): A imagem dentro do card também ganha um zoom interno */
+    img {
+      transform: scale(1.1); /* A imagem aumenta 10% dentro do próprio espaço */
+    }
   }
 
+  /* Configuração base da imagem para suportar o zoom interno da Opção 2 */
   img {
     width: 100%;
     height: 200px;
     object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1); /* Transição independente para a imagem */
   }
 }
 
@@ -258,9 +274,10 @@ header {
   h3 {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     font-size: 1.2rem;
     margin-bottom: 10px;
-    color: $secondary;
+    color: $secondary-color;
   }
 
   p {
@@ -272,9 +289,10 @@ header {
 
 .price {
   font-weight: 700;
-  color: $primary;
+  color: $primary-color;
   font-size: 1.2rem;
 }
+
 /* --- SOBRE --- */
 .sobre {
   padding: 6rem 20px;
@@ -304,7 +322,6 @@ header {
     }
   }
 }
-
 
 /* --- GALERIA --- */
 .galeria {
@@ -339,13 +356,9 @@ header {
 /* --- RESERVA --- */
 .reserva {
   padding: 6rem 0;
-  background:
-    linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
-    url("https://images.unsplash.com/photo-1533776992670-a72f4c28235e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y29wb3xlbnwwfHwwfHx8MA%3D%3D");
-
- 
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("https://images.unsplash.com/photo-1533776992670-a72f4c28235e?w=500&auto=format&fit=crop&q=60");
   background-size: cover;
-   background-position: center;
+  background-position: center;
   color: $white;
 }
 
@@ -356,6 +369,10 @@ header {
   padding: 3rem;
   border-radius: 15px;
   backdrop-filter: blur(5px);
+
+  h2 {
+    margin-bottom: 0.5rem;
+  }
 }
 
 .reserva form {
@@ -370,13 +387,18 @@ header {
   gap: 1.2rem;
 }
 
-input,
-select {
+input {
   padding: 0.9rem;
   border: 1px solid transparent;
   border-radius: 5px;
   width: 100%;
   font-family: inherit;
+  font-size: 1rem;
+  color: $dark-color;
+
+  &:focus {
+    outline: 2px solid $primary-color;
+  }
 }
 
 /* --- CONTATO --- */
@@ -415,7 +437,7 @@ footer {
 }
 
 .social-links {
-  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
 
   a {
     color: $white;
@@ -429,33 +451,20 @@ footer {
   }
 }
 
-/* --- ANIMAÇÕES --- */
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-30px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-/* --- MENU MOBILE --- */
+/* --- HAMBURGER --- */
 .hamburger {
   display: none;
   cursor: pointer;
+  z-index: 1001; /* Fica por cima do menu expandido */
+  
+  /* Bug Corrigido: Garante que o ícone do Font Awesome herde as cores estruturais */
+  i {
+    color: $white; 
+    font-size: 25px;
+    display: block;
+    width: 25px;
+    text-align: center;
+  }
 }
 
 .bar {
@@ -463,7 +472,7 @@ footer {
   width: 25px;
   height: 3px;
   margin: 5px auto;
-  background: $dark-color;
+  background: $white;
   transition: 0.3s;
 }
 
@@ -473,44 +482,51 @@ footer {
     display: block;
   }
 
+  /* Bug Corrigido: Se o cabeçalho for rolado, a cor do ícone hambúrguer obedece a classe */
+  header.scrolled .hamburger i {
+    color: $dark-color;
+  }
+
   .nav-menu {
     position: fixed;
     left: -100%;
-    top: 70px;
+    top: 0; /* Correção para cobrir toda a viewport lateral */
+    height: 100vh;
     flex-direction: column;
+    justify-content: center;
     background: $white;
-    width: 100%;
-    text-align: center;
-    transition: 0.4s;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
-    padding: 2rem 0;
+    width: 80%; /* Menu lateral elegante estilo gaveta */
+    max-width: 300px;
+    transition: 0.4s ease-in-out;
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.2);
+    padding: 2rem;
 
     &.active {
       left: 0;
     }
 
     li {
-      margin: 1.2rem 0;
-      a{
-        text-align: center;
-        margin-left: -1px; 
+      margin: 1.5rem 0;
+      a {
+        font-size: 1.2rem;
+        text-align: left;
+        margin-left: 0;
+        color: $dark-color !important; /* Força cor escura legível no mobile */
       }
     }
   }
 
-  .sobre,
-  .contato {
+  .sobre, .contato {
     grid-template-columns: 1fr;
     text-align: center;
   }
 
-  .hero {
-    h1 {
-      font-size: 2.2rem;
-    }
+  .hero h1 {
+    font-size: 2.2rem;
   }
 
   .form-group {
     flex-direction: column;
+    gap: 1.2rem;
   }
 }

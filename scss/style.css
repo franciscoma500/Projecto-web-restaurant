@@ -20,7 +20,6 @@ body {
   opacity: 0;
   transition: opacity 1s ease;
 }
-
 body.loaded {
   opacity: 1;
 }
@@ -32,22 +31,18 @@ body.loaded {
   padding: 0 20px;
 }
 
-h1,
-h2,
-h3,
-.logo {
+h1, h2, h3, .logo {
   font-family: "Playfair Display", serif;
 }
 
 /* --- HEADER --- */
 header {
-  background: #ffffff;
+  background: transparent;
   padding: 1rem 0;
   position: fixed;
   width: 100%;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
 }
 header nav {
@@ -55,16 +50,37 @@ header nav {
   justify-content: space-between;
   align-items: center;
 }
+header {
+  /* Classe injetada via JS ao rolar a página */
+}
+header.scrolled {
+  background: #ffffff;
+  padding: 0.5rem 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+header.scrolled .logo {
+  color: #1a1a1a;
+}
+header.scrolled .nav-menu li a {
+  color: #1a1a1a;
+}
+header.scrolled .nav-menu li a:hover {
+  color: #D35400;
+}
+header.scrolled .bar {
+  background: #1a1a1a;
+}
 
 /* --- LOGO --- */
 .logo {
   font-size: 1.8rem;
   font-weight: 700;
   text-decoration: none;
-  color: #1a1a1a;
+  color: #ffffff;
+  transition: all 0.3s ease;
 }
 .logo span {
-  color: #e67e22;
+  color: #D35400;
 }
 
 /* --- MENU --- */
@@ -74,13 +90,13 @@ header nav {
 }
 .nav-menu li a {
   text-decoration: none;
-  color: #1a1a1a;
+  color: #ffffff;
   margin-left: 2rem;
   font-weight: 600;
   transition: all 0.3s ease;
 }
 .nav-menu li a:hover {
-  color: #e67e22;
+  color: #D35400;
 }
 
 /* --- HERO --- */
@@ -125,16 +141,16 @@ header nav {
 }
 
 .btn-primary {
-  background: #e67e22;
+  background: #D35400;
   color: #ffffff;
-  border: 2px solid #e67e22;
+  border: 2px solid #D35400;
 }
 .btn-primary i {
   margin-left: 12px;
 }
 .btn-primary:hover {
-  background: #c0392b;
-  border-color: #c0392b;
+  background: #C0392B;
+  border-color: #C0392B;
   transform: translateY(-3px);
 }
 
@@ -200,23 +216,32 @@ header nav {
   gap: 30px;
 }
 
+/* --- MENU CARD COM ANIMAÇÃO DE SCALE (SUBSTITUIR ESTE BLOCO) --- */
 .menu-card {
   background: #ffffff;
   border-radius: 15px;
-  overflow: hidden;
+  overflow: hidden; /* CRÍTICO: Mantém a imagem dentro das bordas arredondadas ao aumentar */
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-  animation: fadeIn 0.5s ease;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease; /* Transição suave e elegante */
+  /* OPÇÃO 1: O card inteiro sobe e aumenta ligeiramente */
 }
 .menu-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  transform: translateY(-8px) scale(1.03); /* Sobe 8px e aumenta 3% do tamanho */
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12); /* Sombra projetada mais profunda */
+  /* OPÇÃO 2 (Efeito Combo): A imagem dentro do card também ganha um zoom interno */
+}
+.menu-card:hover img {
+  transform: scale(1.1); /* A imagem aumenta 10% dentro do próprio espaço */
+}
+.menu-card {
+  /* Configuração base da imagem para suportar o zoom interno da Opção 2 */
 }
 .menu-card img {
   width: 100%;
   height: 200px;
   -o-object-fit: cover;
      object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1); /* Transição independente para a imagem */
 }
 
 .menu-info {
@@ -225,6 +250,7 @@ header nav {
 .menu-info h3 {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-size: 1.2rem;
   margin-bottom: 10px;
   color: #C0392B;
@@ -252,7 +278,7 @@ header nav {
 .sobre-img img {
   width: 100%;
   border-radius: 10px;
-  box-shadow: 15px 15px 0 #e67e22;
+  box-shadow: 15px 15px 0 #D35400;
 }
 .sobre-text h2 {
   font-size: 2.5rem;
@@ -296,7 +322,7 @@ header nav {
 /* --- RESERVA --- */
 .reserva {
   padding: 6rem 0;
-  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("https://images.unsplash.com/photo-1533776992670-a72f4c28235e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8Y29wb3xlbnwwfHwwfHx8MA%3D%3D");
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("https://images.unsplash.com/photo-1533776992670-a72f4c28235e?w=500&auto=format&fit=crop&q=60");
   background-size: cover;
   background-position: center;
   color: #ffffff;
@@ -309,6 +335,9 @@ header nav {
   padding: 3rem;
   border-radius: 15px;
   backdrop-filter: blur(5px);
+}
+.reserva-box h2 {
+  margin-bottom: 0.5rem;
 }
 
 .reserva form {
@@ -323,13 +352,17 @@ header nav {
   gap: 1.2rem;
 }
 
-input,
-select {
+input {
   padding: 0.9rem;
   border: 1px solid transparent;
   border-radius: 5px;
   width: 100%;
   font-family: inherit;
+  font-size: 1rem;
+  color: #1a1a1a;
+}
+input:focus {
+  outline: 2px solid #D35400;
 }
 
 /* --- CONTATO --- */
@@ -349,7 +382,7 @@ select {
   font-size: 1.1rem;
 }
 .contato-info i {
-  color: #e67e22;
+  color: #D35400;
   margin-right: 10px;
   width: 20px;
 }
@@ -363,7 +396,7 @@ footer {
 }
 
 .social-links {
-  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 .social-links a {
   color: #ffffff;
@@ -372,32 +405,22 @@ footer {
   transition: all 0.3s ease;
 }
 .social-links a:hover {
-  color: #e67e22;
+  color: #D35400;
 }
 
-/* --- ANIMAÇÕES --- */
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-/* --- MENU MOBILE --- */
+/* --- HAMBURGER --- */
 .hamburger {
   display: none;
   cursor: pointer;
+  z-index: 1001; /* Fica por cima do menu expandido */
+  /* Bug Corrigido: Garante que o ícone do Font Awesome herde as cores estruturais */
+}
+.hamburger i {
+  color: #ffffff;
+  font-size: 25px;
+  display: block;
+  width: 25px;
+  text-align: center;
 }
 
 .bar {
@@ -405,7 +428,7 @@ footer {
   width: 25px;
   height: 3px;
   margin: 5px auto;
-  background: #1a1a1a;
+  background: #ffffff;
   transition: 0.3s;
 }
 
@@ -414,30 +437,37 @@ footer {
   .hamburger {
     display: block;
   }
+  /* Bug Corrigido: Se o cabeçalho for rolado, a cor do ícone hambúrguer obedece a classe */
+  header.scrolled .hamburger i {
+    color: #1a1a1a;
+  }
   .nav-menu {
     position: fixed;
     left: -100%;
-    top: 70px;
+    top: 0; /* Correção para cobrir toda a viewport lateral */
+    height: 100vh;
     flex-direction: column;
+    justify-content: center;
     background: #ffffff;
-    width: 100%;
-    text-align: center;
-    transition: 0.4s;
-    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
-    padding: 2rem 0;
+    width: 80%; /* Menu lateral elegante estilo gaveta */
+    max-width: 300px;
+    transition: 0.4s ease-in-out;
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.2);
+    padding: 2rem;
   }
   .nav-menu.active {
     left: 0;
   }
   .nav-menu li {
-    margin: 1.2rem 0;
+    margin: 1.5rem 0;
   }
   .nav-menu li a {
-    text-align: center;
-    margin-left: -1px;
+    font-size: 1.2rem;
+    text-align: left;
+    margin-left: 0;
+    color: #1a1a1a !important; /* Força cor escura legível no mobile */
   }
-  .sobre,
-  .contato {
+  .sobre, .contato {
     grid-template-columns: 1fr;
     text-align: center;
   }
@@ -446,5 +476,6 @@ footer {
   }
   .form-group {
     flex-direction: column;
+    gap: 1.2rem;
   }
 }/*# sourceMappingURL=style.css.map */
