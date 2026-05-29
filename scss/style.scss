@@ -3,7 +3,7 @@ $primary-color: #D35400;
 $secondary-color: #C0392B;
 $accent-color: #F39C12;
 $dark-color: #1a1a1a;
-$light-color: #FDF5E6;
+$light-color: #FDF5E6; 
 $white: #ffffff;
 
 $font-title: "Playfair Display", serif;
@@ -25,10 +25,10 @@ body {
   font-family: $font-body;
   line-height: 1.6;
   color: $dark-color;
-  background-color: $white;
+  background-color: $light-color; 
   overflow-x: hidden;
   opacity: 0;
-  transition: opacity 1s ease;
+  transition: opacity 0.5s ease;
 
   &.loaded {
     opacity: 1;
@@ -46,7 +46,7 @@ h1, h2, h3, .logo {
   font-family: $font-title;
 }
 
-/* --- HEADER --- */
+/* --- HEADER & NAVBAR RESPONSIVO --- */
 header {
   background: transparent;
   padding: 1rem 0;
@@ -62,56 +62,80 @@ header {
     align-items: center;
   }
 
-  /* Classe injetada via JS ao rolar a página */
   &.scrolled {
     background: $white;
-    padding: 0.5rem 0;
+    padding: 0.6rem 0;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 
-    .logo {
-      color: $dark-color;
-    }
-
+    .logo { color: $dark-color; }
     .nav-menu li a {
       color: $dark-color;
       &:hover { color: $primary-color; }
     }
+    .bar { background: $dark-color; }
+  }
 
-    .bar {
-      background: $dark-color;
-    }
+  // Previne que o hamburger fique invisível caso seja aberto no topo transparente
+  &:has(.hamburger.active) {
+    background: $white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    .logo { color: $dark-color; }
+    .bar { background: $dark-color; }
   }
 }
 
-/* --- LOGO --- */
 .logo {
   font-size: 1.8rem;
   font-weight: 700;
   text-decoration: none;
   color: $white;
   transition: $transition;
-
-  span {
-    color: $primary-color;
-  }
+  span { color: $primary-color; }
 }
 
-/* --- MENU --- */
 .nav-menu {
   display: flex;
   list-style: none;
+  align-items: center;
 
-  li {
-    a {
-      text-decoration: none;
-      color: $white;
-      margin-left: 2rem;
-      font-weight: 600;
-      transition: $transition;
+  li a {
+    text-decoration: none;
+    color: $white;
+    margin-left: 2rem;
+    font-weight: 600;
+    transition: $transition;
+    &:hover { color: $primary-color; }
+  }
+}
 
-      &:hover {
-        color: $primary-color;
-      }
+/* --- HAMBURGER TRANSFORMAÇÃO NATIVA EM X --- */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  z-index: 1002;
+  padding: 5px;
+  background: transparent;
+  border: none;
+
+  .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    background: $white;
+    transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
+    border-radius: 3px;
+  }
+
+  &.active {
+    .bar:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+    .bar:nth-child(2) {
+      opacity: 0;
+    }
+    .bar:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
     }
   }
 }
@@ -133,7 +157,6 @@ header {
     margin-bottom: 1rem;
     line-height: 1.2;
   }
-
   p {
     font-size: 1.2rem;
     margin-bottom: 2rem;
@@ -163,11 +186,7 @@ header {
   background: $primary-color;
   color: $white;
   border: 2px solid $primary-color;
-
-  i {
-    margin-left: 12px;
-  }
-
+  i { margin-left: 12px; }
   &:hover {
     background: $secondary-color;
     border-color: $secondary-color;
@@ -178,16 +197,15 @@ header {
 .btn-outline {
   border: 2px solid $white;
   color: $white;
-
   &:hover {
     background: $white;
     color: $dark-color;
   }
 }
 
-/* --- SECTION --- */
+/* --- SECTIONS PADDING --- */
 .section-padding {
-  padding: 80px 10% 40px;
+  padding: 80px 20px 40px; 
 }
 
 .section-title {
@@ -212,13 +230,13 @@ header {
 .filter-buttons {
   display: flex;
   justify-content: center;
-  gap: 15px;
+  gap: 10px;
   margin-bottom: 40px;
   flex-wrap: wrap;
 }
 
 .filter-btn {
-  padding: 8px 25px;
+  padding: 8px 20px;
   border: 2px solid $primary-color;
   background: transparent;
   color: $primary-color;
@@ -238,39 +256,36 @@ header {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/* --- MENU CARD COM ANIMAÇÃO DE SCALE (SUBSTITUIR ESTE BLOCO) --- */
+/* --- CARD PERFORMANCE ANIMAÇÃO --- */
 .menu-card {
   background: $white;
   border-radius: 15px;
-  overflow: hidden; /* CRÍTICO: Mantém a imagem dentro das bordas arredondadas ao aumentar */
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease; /* Transição suave e elegante */
+  overflow: hidden; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); 
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease;
+  transform-origin: center bottom; 
 
-  /* OPÇÃO 1: O card inteiro sobe e aumenta ligeiramente */
   &:hover {
-    transform: translateY(-8px) scale(1.03); /* Sobe 8px e aumenta 3% do tamanho */
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12); /* Sombra projetada mais profunda */
-    
-    /* OPÇÃO 2 (Efeito Combo): A imagem dentro do card também ganha um zoom interno */
-    img {
-      transform: scale(1.1); /* A imagem aumenta 10% dentro do próprio espaço */
-    }
+    transform: translateY(-12px) scale(1.02); 
+    box-shadow: 0 22px 40px rgba(26, 26, 26, 0.2); 
+    img { transform: scale(1.05); }
   }
 
-  /* Configuração base da imagem para suportar o zoom interno da Opção 2 */
   img {
     width: 100%;
     height: 200px;
     object-fit: cover;
-    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1); /* Transição independente para a imagem */
+    aspect-ratio: 16 / 11; 
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   }
-}
+}   
 
 .menu-info {
   padding: 20px;
-
   h3 {
     display: flex;
     justify-content: space-between;
@@ -279,7 +294,6 @@ header {
     margin-bottom: 10px;
     color: $secondary-color;
   }
-
   p {
     font-size: 0.9rem;
     color: #666;
@@ -301,36 +315,23 @@ header {
   gap: 50px;
   align-items: center;
 
-  &-img {
-    img {
-      width: 100%;
-      border-radius: 10px;
-      box-shadow: 15px 15px 0 $primary-color;
-    }
+  &-img img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 15px 15px 0 $primary-color;
   }
 
   &-text {
-    h2 {
-      font-size: 2.5rem;
-      margin-bottom: 1.5rem;
-    }
-
-    p {
-      margin-bottom: 1rem;
-      font-size: 1.1rem;
-      color: #555;
-    }
+    h2 { font-size: 2.5rem; margin-bottom: 1.5rem; }
+    p { margin-bottom: 1rem; font-size: 1.1rem; color: #555; }
   }
 }
 
 /* --- GALERIA --- */
-.galeria {
-  padding: 6rem 0;
-}
-
+.galeria { padding: 6rem 20px; }
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 15px;
 }
 
@@ -345,7 +346,6 @@ header {
     object-fit: cover;
     transition: $transition;
     cursor: pointer;
-
     &:hover {
       transform: scale(1.1);
       filter: brightness(80%);
@@ -353,10 +353,10 @@ header {
   }
 }
 
-/* --- RESERVA --- */
+/* --- RESERVA & FORMULÁRIO --- */
 .reserva {
-  padding: 6rem 0;
-  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("https://images.unsplash.com/photo-1533776992670-a72f4c28235e?w=500&auto=format&fit=crop&q=60");
+  padding: 6rem 20px;
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("https://images.unsplash.com/photo-1533776992670-a72f4c28235e?w=800&q=70");
   background-size: cover;
   background-position: center;
   color: $white;
@@ -366,13 +366,10 @@ header {
   max-width: 650px;
   margin: 0 auto;
   background: rgba(255, 255, 255, 0.1);
-  padding: 3rem;
+  padding: 3rem 2rem;
   border-radius: 15px;
   backdrop-filter: blur(5px);
-
-  h2 {
-    margin-bottom: 0.5rem;
-  }
+  h2 { margin-bottom: 0.5rem; }
 }
 
 .reserva form {
@@ -383,7 +380,8 @@ header {
 }
 
 .form-group {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 1.2rem;
 }
 
@@ -395,10 +393,7 @@ input {
   font-family: inherit;
   font-size: 1rem;
   color: $dark-color;
-
-  &:focus {
-    outline: 2px solid $primary-color;
-  }
+  &:focus { outline: 2px solid $primary-color; }
 }
 
 /* --- CONTATO --- */
@@ -408,23 +403,15 @@ input {
   grid-template-columns: 1fr 1fr;
   gap: 40px;
   align-items: center;
-
   &-info {
-    h2 {
-      font-size: 2.5rem;
-      margin-bottom: 1.5rem;
-    }
-
-    p {
-      margin-bottom: 1.2rem;
-      font-size: 1.1rem;
-    }
-
-    i {
-      color: $primary-color;
-      margin-right: 10px;
-      width: 20px;
-    }
+    h2 { font-size: 2.5rem; margin-bottom: 1.5rem; }
+    p { margin-bottom: 1.2rem; font-size: 1.1rem; }
+    i { color: $primary-color; margin-right: 10px; width: 20px; }
+  }
+  .mapa {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 10px;
   }
 }
 
@@ -438,95 +425,86 @@ footer {
 
 .social-links {
   margin-bottom: 1.5rem;
-
   a {
     color: $white;
     font-size: 1.5rem;
     margin: 0 15px;
     transition: $transition;
-
-    &:hover {
-      color: $primary-color;
-    }
+    &:hover { color: $primary-color; }
   }
 }
 
-/* --- HAMBURGER --- */
-.hamburger {
-  display: none;
-  cursor: pointer;
-  z-index: 1001; /* Fica por cima do menu expandido */
-  
-  /* Bug Corrigido: Garante que o ícone do Font Awesome herde as cores estruturais */
-  i {
-    color: $white; 
-    font-size: 25px;
-    display: block;
-    width: 25px;
+/* --- MEDIA QUERIES --- */
+@media (min-width: 901px) {
+  .sobre {
+    .sobre-text { order: 2; }
+    .sobre-img { order: 1; }
+  }
+}
+
+@media (max-width: 900px) {
+  .contato {
+    grid-template-columns: 1fr;
     text-align: center;
   }
-}
 
-.bar {
-  display: block;
-  width: 25px;
-  height: 3px;
-  margin: 5px auto;
-  background: $white;
-  transition: 0.3s;
-}
+  .sobre {
+    grid-template-columns: 1fr;
+    text-align: center;
 
-/* --- RESPONSIVO --- */
-@media (max-width: 768px) {
-  .hamburger {
-    display: block;
+    .sobre-img {
+      order: 1;          
+      margin-bottom: 2.5rem; 
+      img { box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); }
+    }
+    
+    .sobre-text { order: 2; }
   }
+}
 
-  /* Bug Corrigido: Se o cabeçalho for rolado, a cor do ícone hambúrguer obedece a classe */
-  header.scrolled .hamburger i {
-    color: $dark-color;
+@media (max-width: 768px) {
+  .hamburger { 
+    display: block; 
   }
 
   .nav-menu {
     position: fixed;
     left: -100%;
-    top: 0; /* Correção para cobrir toda a viewport lateral */
+    top: 0; 
     height: 100vh;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     background: $white;
-    width: 80%; /* Menu lateral elegante estilo gaveta */
-    max-width: 300px;
-    transition: 0.4s ease-in-out;
-    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.2);
+    width: 100%; 
+    transition: left 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    z-index: 1001;
     padding: 2rem;
 
-    &.active {
-      left: 0;
-    }
+    &.active { left: 0; }
 
     li {
-      margin: 1.5rem 0;
+      margin: 1.2rem 0;
+      width: 100%;
+      text-align: center;
+
       a {
-        font-size: 1.2rem;
-        text-align: left;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: $dark-color; 
         margin-left: 0;
-        color: $dark-color !important; /* Força cor escura legível no mobile */
+        display: inline-block;
+        width: auto;
+
+        &:hover { color: $primary-color; }
       }
     }
   }
 
-  .sobre, .contato {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-
-  .hero h1 {
-    font-size: 2.2rem;
-  }
-
+  .hero h1 { font-size: 2.2rem; }
+  
   .form-group {
-    flex-direction: column;
+    grid-template-columns: 1fr;
     gap: 1.2rem;
   }
 }
