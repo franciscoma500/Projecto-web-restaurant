@@ -23,13 +23,12 @@ html {
 
 body {
   font-family: $font-body;
+  line-height: 1.6;
   color: $dark-color;
   background-color: $light-color; 
   overflow-x: hidden;
-
-
-
-
+ 
+  transition: opacity 0.5s ease;
 }
 
 /* --- GLOBAIS --- */
