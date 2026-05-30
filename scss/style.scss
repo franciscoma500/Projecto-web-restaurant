@@ -27,8 +27,12 @@ body {
   color: $dark-color;
   background-color: $light-color; 
   overflow-x: hidden;
- 
+  opacity: 0;
   transition: opacity 0.5s ease;
+
+  &.loaded {
+    opacity: 1;
+  }
 }
 
 /* --- GLOBAIS --- */
